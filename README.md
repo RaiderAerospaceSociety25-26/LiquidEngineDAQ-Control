@@ -9,3 +9,7 @@ The radios work via Meshtastic (only using TX/RX pins on the boards as far as I 
 
 ### Docs
 Pin assignments for Nucleo board are listed in the manual pg. ~38
+
+### Operation Notes
+The 5V/USB power connector trace has been cut for both Teensys (this separates USB and external power). This allows USB to be connected for data only, while the board is powered with external 5V at the same time.
+For the Nucleo-144 board, follow instructions on pg. 22 (section 7.4.6) of the manual: connect the USB cable only after the board has been powered on via external power.
