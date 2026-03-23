@@ -8,7 +8,7 @@ There is an STM32 plugin for VSCode with info [here](https://www.st.com/content/
 The radios work via Meshtastic (only using TX/RX pins on the boards as far as I know)
 
 ### Hardware
-ADS1256 analog signal input must be held at AVDD minus 2V (so 3V maximum analog signal) if using self-calibration routines. If we have the capability to perform calibration and write calibration values directly to the register, we could bypass this and use the full range (analog signals accepted up to AVDD), but this would likely be fairly difficult.
+ADS1256 analog signal input maxes out at AVDD minus 2V (so 3V maximum analog signal) if using self-calibration routines. If we have the capability to perform calibration and write calibration values directly to the register, we could bypass this and use the full range (analog signals accepted up to AVDD), but this would likely be fairly difficult.
 
 ### Docs
 Pin assignments for Nucleo board are listed in the manual pg. ~38
