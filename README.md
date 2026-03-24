@@ -13,7 +13,7 @@ The radios work via Meshtastic (only using TX/RX pins on the boards as far as I 
 ## Firmware Architecture
 Plan is to just use the common setup and loop structure for the Nucleo to start and the Teensys as well. Ideally move to something like FreeRTOS for the Nucleo board eventually to potentially speed things up.
 
-To install a library in VSCode PlatformIO: Go to PlatformIO -> Quick Access -> PIO Home -> Libraries. Then search for the library and add it. This will add the library in the `lib_deps` section of the `platformio.ini` file.
+To install a library in VSCode PlatformIO: Go to PlatformIO Home -> Libraries. Then search for the library and add it. This will add the library in the `lib_deps` section of the `platformio.ini` file. The library will be installed in the `<User>/.platformio/lib` folder.
 
 ### MCU Function Divisions and Required Libraries
 #### Teensy LC/TC
