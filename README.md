@@ -19,13 +19,15 @@ Plan is to just use the common setup and loop structure for the Nucleo to start 
   * Obtain thrust and TC data and send it to Nucleo via SPI.
 # Teensy PT
 * Libraries: SPI, ADS1256
-* Obtain PT data and send it to Nucleo via SPI.
+* Functions:
+ * Obtain PT data and send it to Nucleo via SPI.
 # Nucleo
 * Libraries: SPI, SD card, servo/stepper stuff
-* Receive LC/TC/PT data via two SPI connections
-* Write data to SD card
-* Actuate valves based on predetermined sequences triggered by T-Beam radio over TX/RX pins
-* Sense overpressures or other issues and send alarms and/or autonomously actuate valves
+* Functions:
+ * Receive LC/TC/PT data via two SPI connections
+ * Write data to SD card
+ * Actuate valves based on predetermined sequences triggered by T-Beam radio over TX/RX pins
+ * Sense overpressures or other issues and send alarms and/or autonomously actuate valves
 
 # Hardware
 ### ADS1256 Notes
