@@ -21,14 +21,21 @@ Plan is to just use the common setup and loop structure for the Nucleo to start 
 * Functions:
   * Obtain thrust and TC data and send it to Nucleo via SPI.
 ### Teensy PT
-* Libraries: SPI, ADS1256
+* Libraries:
+  * SPI
+  * ADS1256
 * Functions:
   * Obtain PT data and send it to Nucleo via SPI.
 ### Nucleo
 * Libraries:
-  * SPI
-  * SD card
-  * servo/stepper stuff
+  * SPI.h
+    * For SPI communication
+  * Wire.h
+    * For I2C communication
+  * SD.h
+    * For writing to SD card
+  * Adafruit_PWMServoDriver
+    * For servo
 * Functions:
   * Receive LC/TC/PT data via two SPI connections
   * Write data to SD card
