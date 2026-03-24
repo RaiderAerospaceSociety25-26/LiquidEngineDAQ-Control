@@ -12,6 +12,9 @@ The radios work via Meshtastic (only using TX/RX pins on the boards as far as I 
 
 ### Software Architecture
 Plan is to just use the common setup and loop structure for the Nucleo to start and the Teensys as well. Ideally move to something like FreeRTOS for the Nucleo board eventually to potentially speed things up.
+
+To install a library in VSCode PlatformIO: Go to PlatformIO -> Quick Access -> PIO Home -> Libraries. Then search for the library and add it. This will add the library in the `lib_deps` section of the `platformio.ini` file.
+
 ## MCU Function Divisions and Required Libraries
 ### Teensy LC/TC
 * Libraries:
@@ -34,8 +37,8 @@ Plan is to just use the common setup and loop structure for the Nucleo to start 
     * For I2C communication
   * SD.h
     * For writing to SD card
-  * Adafruit_PWMServoDriver
-    * For servo
+  * Adafruit_PWMServoDriver.h
+    * For servo control
 * Functions:
   * Receive LC/TC/PT data via two SPI connections
   * Write data to SD card
