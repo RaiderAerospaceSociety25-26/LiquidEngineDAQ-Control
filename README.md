@@ -14,7 +14,10 @@ The radios work via Meshtastic (only using TX/RX pins on the boards as far as I 
 Plan is to just use the common setup and loop structure for the Nucleo to start and the Teensys as well. Ideally move to something like FreeRTOS for the Nucleo board eventually to potentially speed things up.
 ## MCU Function Divisions and Required Libraries
 # Teensy LC/TC
-* Libraries: SPI, ADS1115, NAU7802
+* Libraries:
+  * SPI
+  * ADS1115
+  * NAU7802
 * Functions:
   * Obtain thrust and TC data and send it to Nucleo via SPI.
 # Teensy PT
@@ -22,7 +25,10 @@ Plan is to just use the common setup and loop structure for the Nucleo to start 
 * Functions:
   * Obtain PT data and send it to Nucleo via SPI.
 # Nucleo
-* Libraries: SPI, SD card, servo/stepper stuff
+* Libraries:
+  * SPI
+  * SD card
+  * servo/stepper stuff
 * Functions:
   * Receive LC/TC/PT data via two SPI connections
   * Write data to SD card
