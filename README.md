@@ -10,13 +10,21 @@ There is an STM32 plugin for VSCode with info [here](https://www.st.com/content/
 
 The radios work via Meshtastic (only using TX/RX pins on the boards as far as I know)
 
-### Libraries
-For Teensy LC/TC: SPI, ADS1115, NAU7802, 
-For Teensy PT: SPI, ADS1256, 
-For Nucleo: SPI, SD card, 
-
 ### Software Architecture
 Plan is to just use the common setup and loop structure for the Nucleo to start and the Teensys as well. Ideally move to something like FreeRTOS for the Nucleo board eventually to potentially speed things up.
+## MCU Function Divisions and Required Libraries
+# Teensy LC/TC
+* Libraries: SPI, ADS1115, NAU7802
+* Obtain thrust and TC data and send it to Nucleo via SPI.
+# Teensy PT
+* Libraries: SPI, ADS1256
+* Obtain PT data and send it to Nucleo via SPI.
+# Nucleo
+* Libraries: SPI, SD card, servo/stepper stuff
+* Receive LC/TC/PT data via two SPI connections
+* Write data to SD card
+* Actuate valves based on predetermined sequences triggered by T-Beam radio over TX/RX pins
+* Sense overpressures or other issues and send alarms and/or autonomously actuate valves
 
 # Hardware
 ### ADS1256 Notes
