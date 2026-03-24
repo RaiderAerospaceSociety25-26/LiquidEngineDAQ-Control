@@ -15,7 +15,8 @@ Plan is to just use the common setup and loop structure for the Nucleo to start 
 ## MCU Function Divisions and Required Libraries
 # Teensy LC/TC
 * Libraries: SPI, ADS1115, NAU7802
-* Obtain thrust and TC data and send it to Nucleo via SPI.
+* Functions:
+  * Obtain thrust and TC data and send it to Nucleo via SPI.
 # Teensy PT
 * Libraries: SPI, ADS1256
 * Obtain PT data and send it to Nucleo via SPI.
