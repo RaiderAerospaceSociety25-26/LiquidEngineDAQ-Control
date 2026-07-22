@@ -1,5 +1,6 @@
-// SD CARD
 #include <SPI.h>
+
+// SD CARD
 #include <SD.h>
 File dataFile; // define variable for the data file
 int dataFileNum = 1; // define variable necessary to ensure files are not overwritten (see SD card setup below)
@@ -11,9 +12,7 @@ SdFile root; //not needed?
 bool debug = true;
 
 void setup() {
-  // put your setup code here, to run once:
-
-    // SERIAL COMMUNICATION SETUP
+  // SERIAL COMMUNICATION SETUP
   Serial.begin(9600); //start debug serial channel
   if (debug) {Serial.println("\nSerial initialized");}
 
@@ -34,8 +33,6 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
   //print data to SD card:
   dataFile = SD.open("data" + String(dataFileNum) + ".csv", FILE_WRITE);
   dataFile.println("TEST LINE");
