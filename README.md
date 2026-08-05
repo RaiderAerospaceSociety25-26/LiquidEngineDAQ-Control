@@ -41,6 +41,11 @@ Thermistor voltage divider explained [here](https://www.build-electronic-circuit
 ### NAU7802 Notes
 NAU7802 is for the load cell. It appears that the maximum excitation voltage provided by the LDO on the breakout board is 4.5 V, which is below the load cell's range of 5-10 V excitation [load cell link](https://www.amazon.com/dp/B0CPSL6KX7/ref=dp_iou_view_item?ie=UTF8&psc=1&th=1) (1000 kg, 58 mm). This should be ok, but this does introduce additional sources of error. It is also likely possible to use an external excitation supply if desired.
 
+### Ignition Relay Notes
+[Relay link](https://www.elecbee.com/en/product-detail/5v-1-channel-level-trigger-optocoupler-relay-module-high-or-low-level-trigger-relay-board-for-raspberry-pi-arduino-relay-diy_29060?utm_term=&utm_campaign=&utm_source=adwords&utm_medium=ppc&hsa_acc=9958698819&hsa_cam=23146566611&hsa_grp=195696585111&hsa_ad=796079352697&hsa_src=g&hsa_tgt=pla-2466379623765&hsa_kw=&hsa_mt=&hsa_net=adwords&hsa_ver=3&gad_source=1&gad_campaignid=23146566611&gclid=Cj0KCQjw7cLOBhDmARIsAGsuA0lqxyTn1UGvM2u_73KeJuHUsSg_l_JmbtH1cwgAZSAlX2vw9voNnAIaAuCTEALw_wcB)
+Need to make sure the LED on the relay is functioning as expected (probably LED off to indicate relay off?).
+Additionally, for safety reasons, it would be great to have a physical switch like [this](https://www.adafruit.com/product/3218) (we might already have one something like this) on the 12V supply to the relay as a redundant hardware switch. Maybe? Not sure this is 100% necessary but it would be good peace of mind and good practice.
+
 
 # Docs
 Pin assignments for Nucleo board are listed in the manual pg. ~38
