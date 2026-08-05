@@ -1,49 +1,28 @@
 # LiquidEngineDAQ-Control
-Repository for DAQ and control system for the liquid engine and test stand being developed by the Raider Aerospace Society (RAS) PigeonWorks Liquid Engine Team during the 2025-2026 academic year.
+Repository for DAQ and control system for the liquid engine and test stand being developed by Kyle Markel for the Raider Aerospace Society (RAS) PigeonWorks Liquid Engine Team during the 2025-2026 and 2026-2027 academic years.
 
 # Firmware
-Basics of PlatformIO for Teensy [here](https://forum.pjrc.com/index.php?threads/tutorial-how-to-use-platformio-visual-code-studio-for-teensy.66674/)
-
-Planning to use PlatformIO for both Teensy and Nucleo144 board.
-
-There is an STM32 plugin for VSCode with info [here](https://www.st.com/content/st_com/en/campaigns/stm32-vs-code-extension-z11.html)
-
-The radios work via Meshtastic (only using TX/RX pins on the boards as far as I know)
-
 ## Firmware Architecture
-Plan is to just use the common setup and loop structure for the Nucleo to start and the Teensys as well. Ideally move to something like FreeRTOS for the Nucleo board eventually to potentially speed things up.
+Plan is to just use Arduino and the common setup and loop structure for the Teensys. The Nucleo will need STM32Cube IDE to be able to flash to both the M7 and M4 chip (there are other ways, but this is the easiest I think). Ideally move to something like FreeRTOS (i.e. X-CUBE-FREERTOS) for the Nucleo board eventually to potentially speed things up.
 
-To install a library in VSCode PlatformIO: Go to PlatformIO Home -> Libraries. Then search for the library and add it. This will add the library as a reference in the `lib_deps` section of the `platformio.ini` file and will add the library to the `<Project>/.pio/libdeps/<chipname>/` folder. Libraries are generally installed per-project like this unless configured otherwise. For already-included libraries (such as `Wire` or `SPI` for the Teensy), you can simply add the library definition directly to the `lib_deps` section (I think?), or maybe this is not needed and you can just do the usual `#include` entry at the top of your code. (If needed, you can directly reference the library GitHub in the `lib_deps` section instead, and this will install the library in the `.pio` folder.
+STM32Cube IDE tutorial for multiple cores [link](https://blog.embeddedexpert.io/?p=4075)
+
+SPI communication code examples [link](https://www.makerguides.com/master-slave-spi-communication-arduino/#SPI_Master-Slave_Interfacing)
 
 ### MCU Function Divisions and Required Libraries
-#### Teensy LC/TC
-* Libraries:
-  * SPI
-  * ADS1115
-  * NAU7802
+#### Teensy LC/TM
 * Functions:
-  * Obtain thrust and TC data and send it to Nucleo via SPI.
+  * Obtain thrust (i.e. load cell) and thermistor data and send it to Nucleo via SPI.
 #### Teensy PT
-* Libraries:
-  * SPI
-  * ADS1256
 * Functions:
   * Obtain PT data and send it to Nucleo via SPI.
 #### Nucleo
-* Libraries:
-  * SPI.h
-    * For SPI communication
-  * Wire.h
-    * For I2C communication
-  * SD.h
-    * For writing to SD card
-  * Adafruit_PWMServoDriver.h
-    * For servo control
 * Functions:
-  * Receive LC/TC/PT data via two SPI connections
+  * Receive LC/TM/PT data via two SPI connections
   * Write data to SD card
-  * Actuate valves based on predetermined sequences triggered by T-Beam radio over TX/RX pins
+  * Actuate valves (servo-actuated ball valves) and send ignition signal based on predetermined sequences triggered by T-Beam radio over TX/RX pins
   * Sense overpressures or other issues and send alarms and/or autonomously actuate valves
+  * (Maybe: execute automatic safing/depressurization procedures)
 
 # Hardware
 ### ADS1256 Notes
@@ -51,6 +30,17 @@ ADS1256 analog signal input maxes out at AVDD minus 2V (so 3V maximum analog sig
 
 ### T-Beam Notes
 RX of T-Beam is connected to TX pin on Arduino/Nucleo, and TX of T-Beam is connected to RX pin on Arduino/Nucleo.
+Works via Meshtastic.
+
+### ADS1115 Notes
+ADS1115 will be for the thermistors. Just need two resistors of known/measured resistance to create a voltage divider circuit on the breadboard to get the resistance value of the thermistor, and this value is known at a bunch of different temperatures, so the temperature can be found easily in this manner.
+Thermistor link [here](https://www.automationdirect.com/adc/shopping/catalog/process_control_-a-_measurement/temperature_sensors_-a-_transmitters/temperature_sensors/ntc10k3-n38p14-01?srsltid=AfmBOoq9_-BkfwnmWUoqQKwz0VR2Vfc8l8rtTNl9X8382e33ZclrY4tA)
+Thermistor response curve [here](https://cdn.automationdirect.com/static/support/techqa/10K-3_thermistor_resistance.pdf)
+Thermistor voltage divider explained [here](https://www.build-electronic-circuits.com/voltage-divider/)
+
+### NAU7802 Notes
+NAU7802 is for the load cell. It appears that the maximum excitation voltage provided by the LDO on the breakout board is 4.5 V, which is below the load cell's range of 5-10 V excitation [load cell link](https://www.amazon.com/dp/B0CPSL6KX7/ref=dp_iou_view_item?ie=UTF8&psc=1&th=1) (1000 kg, 58 mm). This should be ok, but this does introduce additional sources of error. It is also likely possible to use an external excitation supply if desired.
+
 
 # Docs
 Pin assignments for Nucleo board are listed in the manual pg. ~38
@@ -60,3 +50,11 @@ Pin assignments for Nucleo board are listed in the manual pg. ~38
 The 5V/USB power connector trace has been cut for both Teensys (this separates USB and external power). This allows USB to be connected for data only, while the board is powered with external 5V at the same time.
 
 For the Nucleo-144 board, follow instructions on pg. 22 (section 7.4.6) of the manual: connect the USB cable only after the board has been powered on via external power.
+
+
+# random notes about PlatformIO and related stuff that is likely no longer relevant
+To install a library in VSCode PlatformIO: Go to PlatformIO Home -> Libraries. Then search for the library and add it. This will add the library as a reference in the `lib_deps` section of the `platformio.ini` file and will add the library to the `<Project>/.pio/libdeps/<chipname>/` folder. Libraries are generally installed per-project like this unless configured otherwise. For already-included libraries (such as `Wire` or `SPI` for the Teensy), you can simply add the library definition directly to the `lib_deps` section (I think?), or maybe this is not needed and you can just do the usual `#include` entry at the top of your code. (If needed, you can directly reference the library GitHub in the `lib_deps` section instead, and this will install the library in the `.pio` folder.
+
+Basics of PlatformIO for Teensy [here](https://forum.pjrc.com/index.php?threads/tutorial-how-to-use-platformio-visual-code-studio-for-teensy.66674/)
+
+There is an STM32 plugin for VSCode with info [here](https://www.st.com/content/st_com/en/campaigns/stm32-vs-code-extension-z11.html)
