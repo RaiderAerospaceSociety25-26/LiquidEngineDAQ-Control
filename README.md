@@ -25,6 +25,16 @@ SPI communication code examples [link](https://www.makerguides.com/master-slave-
   * (Maybe: execute automatic safing/depressurization procedures)
 
 # Hardware
+
+### MCUs
+
+#### Nucleo-H755ZI-Q
+[STMicroelectronics Nucleo-144 H755ZI-Q](https://www.st.com/en/evaluation-tools/nucleo-h755zi-q.html)
+
+Main MCU: STM32H755ZIT6
+
+Secondary MCU: STM32F723IEK6 (I think)
+
 ### ADS1256 Notes
 ADS1256 analog signal input maxes out at AVDD minus 2V (so 3V maximum analog signal) if using self-calibration routines with the buffer. If we have the capability to perform calibration and write calibration values directly to the register, we could bypass this and use the full range (analog signals accepted up to AVDD), but this would likely be fairly difficult. HOWEVER, it looks like the buffer is the issue. The buffer increases input impedance to lower noise/settling time/do other stuff I don't fully understand. Overall, the buffer is needed for high-output impedance sensors. With our pressure transducers, we have a 0.5V-4.5V signal. Generally, pressure transducers are relatively low impedance (mA PTs are very low impedance, mV PTs are higher impedance I think). Briefly looking up PTs, it appears that their impedances are on the order of 100 Ω, which should have no issue as the input impedance on the ADS1256, even with the buffer off, is (150 kΩ / PGA) for PGA values of 16 or lower (and we won't need a high PGA value).  Therefore, I don't think the buffer is essential. So we're good, we just have to make sure that the buffer stays off if we're measuring pressures higher than ~60%-70% of the range of the pressure transducer. Note that the ADC will require a lot more current with the buffer off. Note that the buffer is actually off by default too. Also make sure to keep the PGA low (which won't be an issue because the signal we're reading is already 0.5V-4.5V).
 
