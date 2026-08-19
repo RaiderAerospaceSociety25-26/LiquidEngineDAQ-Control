@@ -28,11 +28,17 @@ SPI communication code examples [link](https://www.makerguides.com/master-slave-
 
 #### Nucleo-H755ZI-Q
 [STMicroelectronics Nucleo-144 H755ZI-Q](https://www.st.com/en/evaluation-tools/nucleo-h755zi-q.html)
+
 Main MCU: STM32H755ZIT6
+
 Secondary MCU: STM32F723IEK6 (I think)
+
 Roughly following this tutorial for coding the STM32: STM32Cube IDE tutorial for multiple cores [link](https://blog.embeddedexpert.io/?p=4075) 
+
 Some info about setting up FreeRTOS on the Nucleo [link](https://dds-demonstrators.readthedocs.io/en/latest/Teams/2.Demonstra-Tors/7.NucleoDDS/DDSFreeRTOS.html#system-timer)
+
 Relevant timer info [link](https://community.st.com/stm32cubemx-mcus-29/trouble-changing-timebase-to-something-other-than-systick-24703)
+
 Info on requiring a different timebase when running with RTOS [link](https://community.st.com/stm32cubemx-mcus-29/code-generated-by-stm32cubemx-sets-the-hal-timebase-isr-priority-incorrectly-when-using-freertos-is-it-really-necessary-to-have-a-separate-timebase-20536)
 
 
