@@ -89,11 +89,11 @@
 #define SPI_MOSI 11
 #define SPI_MISO 12
 #define SPI_SCK 13
-#define USE_SPI SPI
+#define USE_SPI SPI1
 #define DRDY 7
 #define SYNC 8
 #define CS 10
-#define VREF_M = 2.500 //measured VREF value
+#define VREF_M 2.500 //measured VREF value
 
 #define BUF_SET = BUFFER_DISABLED //Set buffer off (0) or on (1). BUFFER MUST BE TURNED OFF FOR READING +4.5V FROM RATIOMETRIC PT!
 #define PGA_SET PGA_1 //Set PGA (programmable gain amplifier) to 1 to measure ± 5 V
@@ -102,27 +102,49 @@
 //int singleEndedChannels[8] = {SING_0, SING_1, SING_2, SING_3, SING_4, SING_5, SING_6, SING_7}; //Array to store the single-ended channels
 //------------------------------------------------------------------------------------------------------------------
 
+//Create ADS1256 object. (DRDY, RESET, SYNC(PDWN), CS, VREF(float)) [for Teensy 4.0]. Measure VREF; if it is not 2.500 exactly, measure it with a multimeter and input it correctly here; this is essential for accurachy.
+ADS1256 PT_ADC(DRDY, ADS1256::PIN_UNUSED, SYNC, CS, VREF_M, &USE_SPI);
+
+int num = 0;
 
 void setup() {
+  // LED BLINK AND SETUP BEGIN CONFIRMATION
+  Serial.begin(9600);
+  Serial.println("Begin setup");
+  pinMode(LED_BUILTIN, OUTPUT); //LED pin setup
+  for (int i = 0; i < 5; i++) { digitalWrite(LED_BUILTIN, HIGH); delay(100); digitalWrite(LED_BUILTIN, LOW); delay(150); } //LED rapid flash 5 times
 
   // ----------------------------- INITIALIZE ADS1256 -----------------------------------
-  //Create ADS1256 object. (DRDY, RESET, SYNC(PDWN), CS, VREF(float)) [for Teensy 4.0]. Measure VREF; if it is not 2.500 exactly, measure it with a multimeter and input it correctly here; this is essential for accurachy.
-  ADS1256 PT_ADC(DRDY, ADS1256::PIN_UNUSED, SYNC, CS, VREF_M, &USE_SPI);
+  //initialize
+  PT_ADC.InitializeADC();
 
   //settings
-  PT_ADC.setBuffer(BUFFER_DISABLED) //set buffer; ensure buffer is turned off for reading +4.5V from ratiometric PT
-  uint8_t buffer_val = PT_ADC.getBuffer() //get buffer
-  PT_ADC.setPGA(PGA_SET) //set PGA
-  PT_ADC.setDRATE(DRATE_SET) //set data rate
+  PT_ADC.setBuffer(BUFFER_DISABLED); //set buffer; ensure buffer is turned off for reading +4.5V from ratiometric PT
+  uint8_t buffer_val = PT_ADC.getBuffer(); //get buffer
+  Serial.print("Buffer value: ");
+  Serial.println(buffer_val);
+  PT_ADC.setPGA(PGA_SET); //set PGA
+  PT_ADC.setDRATE(DRATE_SET); //set data rate
 
   //read
-  PT_ADC.cycleSingle() //cycleSingle() returns a 24 bit signed value converted to a long, and cycles through channels 0 -> 7 (multiplexing); as far as I can tell, each call of this function returns the long value of a single channel, and it just loops through the channels with each call of this function (not entirely sure though)
-  PT_ADC.stopConversion() //conversion must be stopped after reading is no longer necessary
+  long dataTest = PT_ADC.cycleSingle(); //cycleSingle() returns a 24 bit signed value converted to a long, and cycles through channels 0 -> 7 (multiplexing); as far as I can tell, each call of this function returns the long value of a single channel, and it just loops through the channels with each call of this function (not entirely sure though)
+  Serial.println(dataTest);
+  PT_ADC.stopConversion(); //conversion must be stopped after reading is no longer necessary
+
+  //note setup complete
+  Serial.println("PT setup complete.");
+  for (int i = 0; i < 3; i++) { digitalWrite(LED_BUILTIN, HIGH); delay(500); digitalWrite(LED_BUILTIN, LOW); delay(250); } //LED 0.5-second flash 3 times
   // ------------------------------------------------------------------------------------
 
 }
 
 void loop() {
-  
+  if (num < 1000) {
+    long dataTest = PT_ADC.cycleSingle(); //cycleSingle() returns a 24 bit signed value converted to a long, and cycles through channels 0 -> 7 (multiplexing); as far as I can tell, each call of this function returns the long value of a single channel, and it just loops through the channels with each call of this function (not entirely sure though)
+    Serial.println(dataTest);
+    num++;
+  }
+  else if (num == 1000) { PT_ADC.stopConversion(); }
+
 
 }

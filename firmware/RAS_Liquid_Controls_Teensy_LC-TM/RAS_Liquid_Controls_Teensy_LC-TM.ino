@@ -37,6 +37,12 @@ Adafruit_NAU7802 LC;
 
 // setup function
 void setup() {
+  // LED BLINK AND SETUP BEGIN CONFIRMATION
+  Serial.begin(9600);
+  Serial.println("Begin setup");
+  pinMode(LED_BUILTIN, OUTPUT); //LED pin setup
+  for (int i = 0; i < 5; i++) { digitalWrite(LED_BUILTIN, HIGH); delay(100); digitalWrite(LED_BUILTIN, LOW); delay(150); } //LED rapid flash 5 times
+
   // THERMISTOR SETUP
   TM.begin(0x48);
   TM.setGain(ADS1X15_REG_CONFIG_PGA_4_096V);
@@ -44,16 +50,25 @@ void setup() {
   int16_t TM1_reading = TM.readADC_Differential_0_1();
   int16_t TM2_reading = TM.readADC_Differential_2_3(); //might want to use single-ended to read all four separately, but not sure yet
   //int16_t TM_reading = PT.readADC_SingleEnded(0); //single-ended reading; index goes from 0 to 3
+  // INDICATE THERMISTOR SETUP COMPLETE
+  Serial.println(TM1_reading);
+  Serial.println(TM2_reading);
+  Serial.println("TM setup complete.");
+  for (int i = 0; i < 3; i++) { digitalWrite(LED_BUILTIN, HIGH); delay(500); digitalWrite(LED_BUILTIN, LOW); delay(250); } //LED 0.5-second flash 3 times
 
   // LC SETUP
   // default I2C address is 0x2A
   LC.begin();
-  LC.enable(True); // turns sensor enabled and working
+  LC.enable(true); // turns sensor enabled and working
   LC.setLDO(NAU7802_4V5); //sets excitation voltage (set it as high as it can go: 4.5 V)
   LC.setGain(NAU7802_GAIN_4); //sets PGA level
   LC.setRate(NAU7802_RATE_80SPS); //sets sample rate (highest is 320?)
   //LC.calibrate(); //performs internal calibration; don't know if this is necessary; also need a calibration mode
   int32_t LC_reading = LC.read(); //read value
+  // INDICATE LC SETUP COMPLETE
+  Serial.println(LC_reading);
+  Serial.println("LC setup complete.");
+  for (int i = 0; i < 2; i++) { digitalWrite(LED_BUILTIN, HIGH); delay(3000); digitalWrite(LED_BUILTIN, LOW); delay(250); } //LED 3-second flash 2 times
 
 }
 
