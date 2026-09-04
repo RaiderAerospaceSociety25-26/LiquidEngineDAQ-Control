@@ -20,9 +20,10 @@ Repository for DAQ and control system for the liquid engine and test stand being
 #### Firmware
 * A lot of coding and testing for both Teensys.
 * Learn FreeRTOS and how to send code to the Nucleo board. Then a lot of coding and testing for that board.
+* Radio configuration and testing.
 
 #### Testing
-* Lots of checkouts, servo tests, then water tests, other tests, etc.
+* Lots of checkouts, servo tests, igniter tests (w/ breakwire to sync with labjack if desired), radio tests, then water tests, other tests, etc.
 
 # Firmware
 ## Firmware Architecture
