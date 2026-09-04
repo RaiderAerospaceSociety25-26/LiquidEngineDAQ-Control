@@ -3,6 +3,7 @@ Repository for DAQ and control system for the liquid engine and test stand being
 
 # MASTER TO-DO LIST
 #### Hardware
+* Figure out what's going on with the servo buck converter (may have to replace one or both fuses or the buck converter).
 * Solder voltage and ground wires for LC/TM level shifter. (4 wires, 8 solder points).
 * Splice extensions for all 8 pressure transducers (power, ground, and signal for all) and crimp connectors for the terminals. (24 splice solder connections, 24 crimp connectors)
 * Crimp the signal wires for all 8 pressure transducers for the wires going to the ADS1256. (8 crimp connectors)
@@ -11,6 +12,7 @@ Repository for DAQ and control system for the liquid engine and test stand being
 * Splice extensions for the thermistors and load cell, and crimp connectors for the terminals. (8 splice solder connections, 8 crimp connectors)
 * Crimp connections for the LC/TM signal wires. (a few solder connections, 8 crimp connectors)
 * LABEL every single wire (or set of wires) and connector to ensure nothing gets mixed up and everything is extremely clear upon reassembly. (easily in the range of 50-100 labels)
+* Look into options for wireless emergency stop (in case radio loses connection).
 * 3D print mounts for all the boards to go inside the case. Then do the heat-set inserts for the screws.
 * Cut a sheet of plywood to the right size, drill the mounting holes in that sheet as well as the sheet that's already on the test stand. Spraypaint it and mount all components on the new sheet of plywood.
 * Drill holes in the case and route cable conduits.
