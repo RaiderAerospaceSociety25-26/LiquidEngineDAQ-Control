@@ -2,9 +2,23 @@
 Repository for DAQ and control system for the liquid engine and test stand being developed by Kyle Markel for the Raider Aerospace Society (RAS) PigeonWorks Liquid Engine Team during the 2025-2026 and 2026-2027 academic years.
 
 # MASTER TO-DO LIST
+#### Hardware
 * Solder voltage and ground wires for LC/TM level shifter. (4 wires, 8 solder points).
-* Spliced extensions for all 8 pressure transducers (power, ground, and signal for all) and crimp connectors for the terminals. (24 splice connections, 8 crimp connectors)
-* 
+* Splice extensions for all 8 pressure transducers (power, ground, and signal for all) and crimp connectors for the terminals. (24 splice solder connections, 24 crimp connectors)
+* Crimp the signal wires for all 8 pressure transducers for the wires going to the ADS1256. (8 crimp connectors)
+* Splice extensions for all 9 servo signal cords. (18 splice connections)
+* Solder 2x TM voltage divider circuits. (several solder connections, in the 10-20 range)
+* Splice extensions for the thermistors and load cell, and crimp connectors for the terminals. (8 splice solder connections, 8 crimp connectors)
+* 3D print mounts for all the boards to go inside the case. Then do the heat-set inserts for the screws.
+* Cut a sheet of plywood to the right size, drill the mounting holes in that sheet as well as the sheet that's already on the test stand. Spraypaint it and mount all components on the new sheet of plywood.
+* Drill holes in the case and route cable conduits.
+
+#### Firmware
+* A lot of coding and testing for both Teensys.
+* Learn FreeRTOS and how to send code to the Nucleo board. Then a lot of coding and testing for that board.
+
+#### Testing
+* Lots of checkouts, servo tests, then water tests, other tests, etc.
 
 # Firmware
 ## Firmware Architecture
