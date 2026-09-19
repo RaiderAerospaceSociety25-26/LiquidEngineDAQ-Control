@@ -7,7 +7,7 @@ Repository for DAQ and control system for the liquid engine and test stand being
 * Replace and rewire the buck converter.
 * Solder voltage and ground wires for LC/TM level shifter. (4 wires, 8 solder points).
 * ~~Splice extensions for all 8 pressure transducers (power, ground, and signal for all) and crimp connectors for the terminals. (24 splice solder connections, 24 crimp connectors)~~
-* Crimp the signal wires for all 8 pressure transducers for the wires going to the ADS1256. (8 crimp connectors)
+* ~~Crimp the signal wires for all 8 pressure transducers for the wires going to the ADS1256. (8 crimp connectors)~~
 * Splice extensions for all 9 servo signal cords. (18 splice connections)
 * Solder 2x TM voltage divider circuits. (several solder connections, in the 10-20 range)
 * Splice extensions for the thermistors and load cell, and crimp connectors for the terminals. (8 splice solder connections, 8 crimp connectors)
