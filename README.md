@@ -9,12 +9,13 @@ Repository for DAQ and control system for the liquid engine and test stand being
 * ~~Splice extensions for all 8 pressure transducers (power, ground, and signal for all) and crimp connectors for the terminals. (24 splice solder connections, 24 crimp connectors)~~
 * ~~Crimp the signal wires for all 8 pressure transducers for the wires going to the ADS1256. (8 crimp connectors)~~
 * Splice extensions for all 9 servo signal cords. (18 splice connections)
-* Solder 2x TM voltage divider circuits. (several solder connections, in the 10-20 range)
+* ~~Solder circuit for 2x TM voltage dividers. (several solder connections, in the 10-20 range)~~
+* Solder 2x TMs into the voltage divider circuits (4 solder connections; signal wires are already crimped I think).
 * Splice extensions for the thermistors and load cell, and crimp connectors for the terminals. (8 splice solder connections, 8 crimp connectors)
 * Crimp connections for the LC/TM signal wires. (a few solder connections, 8 crimp connectors)
 * LABEL every single wire (or set of wires) and connector to ensure nothing gets mixed up and everything is extremely clear upon reassembly. (easily in the range of 50-100 labels)
 * Look into options for wireless emergency stop (in case radio loses connection).
-* 3D print mounts for all the boards to go inside the case. Then do the heat-set inserts for the screws.
+* 3D print mounts for all the boards to go inside the case. Add heat-set inserts for the screws, and mount all components inside the case. Drill holes for wire pass-throughs.
 * Cut a sheet of plywood to the right size, drill the mounting holes in that sheet as well as the sheet that's already on the test stand. Spraypaint it and mount all components on the new sheet of plywood.
 * Drill holes in the case and route cable conduits.
 
