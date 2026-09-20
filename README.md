@@ -78,6 +78,10 @@ The 5V/USB power connector trace has been cut for both Teensys (this separates U
 For the Nucleo-144 board, follow instructions on pg. 22 (section 7.4.6) of the manual: connect the USB cable only after the board has been powered on via external power.
 
 
+# Operation
+For safety: when the system 
+
+
 # random notes about PlatformIO and related stuff that is likely no longer relevant
 To install a library in VSCode PlatformIO: Go to PlatformIO Home -> Libraries. Then search for the library and add it. This will add the library as a reference in the `lib_deps` section of the `platformio.ini` file and will add the library to the `<Project>/.pio/libdeps/<chipname>/` folder. Libraries are generally installed per-project like this unless configured otherwise. For already-included libraries (such as `Wire` or `SPI` for the Teensy), you can simply add the library definition directly to the `lib_deps` section (I think?), or maybe this is not needed and you can just do the usual `#include` entry at the top of your code. (If needed, you can directly reference the library GitHub in the `lib_deps` section instead, and this will install the library in the `.pio` folder.
 
