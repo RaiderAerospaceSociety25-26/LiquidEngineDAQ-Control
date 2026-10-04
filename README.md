@@ -37,7 +37,10 @@ Secondary MCU: STM32F723IEK6 (I think)
 
 Software required for programming: STM32MX, STM32CubeIDE, STM32CubeProg (STM32CubeProgrammer)
 
-When debugging over USB, you must power the board first, then plug in the USB cable!!
+When debugging over USB, you must power the board first, then plug in the USB cable!! For flashing: BOOT0 pin must be pulled high, then RESET button pressed while USB is plugged in; not currently working though.
+<img width="688" height="803" alt="image" src="https://github.com/user-attachments/assets/7e6bc0b7-124b-48f7-bb2e-242415a28d9f" />
+<img width="666" height="556" alt="image" src="https://github.com/user-attachments/assets/217bd060-1ffb-43e2-8df0-3699c9ea6df3" />
+
 
 Roughly following this tutorial for coding the STM32: STM32Cube IDE tutorial for multiple cores [link](https://blog.embeddedexpert.io/?p=4075) 
 
