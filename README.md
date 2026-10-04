@@ -63,7 +63,7 @@ LPUART1: Radio I/O (UART tutorial with STM32: https://controllerstech.com/stm32-
 
 QSPI: SD card board (CN10: 13, 15, 21, 23 | PG6, PB2, PD12, PD11)
 
-LEDs: green (PB0), red (PB14), yellow (PE1) [info from schematic: https://www.st.com/resource/en/schematic_pack/mb1363-h755ziq-d01_schematic.pdf]
+LEDs: green (1 - PB0), red (3 - PB14), yellow (2 - PE1) [info from schematic: https://www.st.com/resource/en/schematic_pack/mb1363-h755ziq-d01_schematic.pdf]
 
 
 ### ADS1256 Notes
