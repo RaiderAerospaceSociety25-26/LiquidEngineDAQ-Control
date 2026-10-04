@@ -44,10 +44,15 @@ Relevant timer info [link](https://community.st.com/stm32cubemx-mcus-29/trouble-
 Info on requiring a different timebase when running with RTOS [link](https://community.st.com/stm32cubemx-mcus-29/code-generated-by-stm32cubemx-sets-the-hal-timebase-isr-priority-incorrectly-when-using-freertos-is-it-really-necessary-to-have-a-separate-timebase-20536)
 
 SPI1: PT Teensy
+
 SPI3: LC/TM Teensy
+
 I2C1: Servo shield
+
 PE14: Ignition relay GPIO pin
+
 LPUART1: Radio I/O
+
 QSPI: SD card board (CN10: 13, 15, 21, 23 | PG6, PB2, PD12, PD11)
 
 
