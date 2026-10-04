@@ -35,6 +35,8 @@ Main MCU: STM32H755ZIT6
 
 Secondary MCU: STM32F723IEK6 (I think)
 
+Software required for programming: STM32MX, STM32CubeIDE, STM32CubeProg (STM32CubeProgrammer)
+
 When debugging over USB, you must power the board first, then plug in the USB cable!!
 
 Roughly following this tutorial for coding the STM32: STM32Cube IDE tutorial for multiple cores [link](https://blog.embeddedexpert.io/?p=4075) 
