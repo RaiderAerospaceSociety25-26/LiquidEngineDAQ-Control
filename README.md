@@ -35,6 +35,8 @@ Main MCU: STM32H755ZIT6
 
 Secondary MCU: STM32F723IEK6 (I think)
 
+When debugging over USB, you must power the board first, then plug in the USB cable!!
+
 Roughly following this tutorial for coding the STM32: STM32Cube IDE tutorial for multiple cores [link](https://blog.embeddedexpert.io/?p=4075) 
 
 Some info about setting up FreeRTOS on the Nucleo [link](https://dds-demonstrators.readthedocs.io/en/latest/Teams/2.Demonstra-Tors/7.NucleoDDS/DDSFreeRTOS.html#system-timer)
