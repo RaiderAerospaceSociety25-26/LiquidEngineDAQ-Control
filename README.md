@@ -51,7 +51,7 @@ I2C1: Servo shield
 
 PE14: Ignition relay GPIO pin
 
-LPUART1: Radio I/O
+LPUART1: Radio I/O (UART tutorial with STM32: https://controllerstech.com/stm32-uart-1-configure-uart-transmit-data/)
 
 QSPI: SD card board (CN10: 13, 15, 21, 23 | PG6, PB2, PD12, PD11)
 
