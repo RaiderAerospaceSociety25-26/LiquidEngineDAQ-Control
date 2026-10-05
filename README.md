@@ -37,11 +37,13 @@ Secondary MCU: STM32F723IEK6 (I think)
 
 Software required for programming: STM32MX, STM32CubeIDE, STM32CubeProg (STM32CubeProgrammer)
 
-When debugging over USB, you must power the board first, then plug in the USB cable!! For flashing: BOOT0 pin must be pulled high (jumper on CN11 pins 5 and 7), then RESET button pressed while USB is plugged in; this will put the chip in the DFU bootloader mode.
-<img width="688" height="803" alt="image" src="https://github.com/user-attachments/assets/7e6bc0b7-124b-48f7-bb2e-242415a28d9f" />
-<img width="666" height="556" alt="image" src="https://github.com/user-attachments/assets/217bd060-1ffb-43e2-8df0-3699c9ea6df3" />
-All of the above is possible, HOWEVER, this board has the ST-LINK chip included on it already. So it's way easier to use the CN1 ST-LINK USB connection for debugging.
-
+Flashing code to Nucleo board:
+* Plug in USB cable to CN1 (the ST-LINK port).
+* Have the debug configuration set in STM32CubeIDE.
+* Build both M4 and M7 projects.
+* Run M4 project -> this will upload the new M4 code to the M4 chip, but will also stop all operations because of the timing/sync relationship between M7 and M4.
+* Run M7 project -> this will upload the new M7 code to the M7 chip and will sync and restart the M4 chip. Now all code is running correctly.
+* There is probably a more streamlined way to do this so you only have to upload code once; I have not yet found it though. 
 
 Roughly following this tutorial for coding the STM32: STM32Cube IDE tutorial for multiple cores [link](https://blog.embeddedexpert.io/?p=4075) 
 
