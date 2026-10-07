@@ -57,6 +57,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define LEDGM4_Pin GPIO_PIN_0
+#define LEDGM4_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
