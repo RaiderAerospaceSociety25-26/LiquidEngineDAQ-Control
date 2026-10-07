@@ -35,6 +35,16 @@ Main MCU: STM32H755ZIT6
 
 Secondary MCU: STM32F723IEK6 (I think)
 
+Software required for programming: STM32MX, STM32CubeIDE, STM32CubeProg (STM32CubeProgrammer)
+
+Flashing code to Nucleo board:
+* Plug in USB cable to CN1 (the ST-LINK port).
+* Have the debug configuration set in STM32CubeIDE.
+* Build both M4 and M7 projects.
+* Run M4 project -> this will upload the new M4 code to the M4 chip, but will also stop all operations because of the timing/sync relationship between M7 and M4.
+* Run M7 project -> this will upload the new M7 code to the M7 chip and will sync and restart the M4 chip. Now all code is running correctly.
+* There is probably a more streamlined way to do this so you only have to upload code once; I have not yet found it though. 
+
 Roughly following this tutorial for coding the STM32: STM32Cube IDE tutorial for multiple cores [link](https://blog.embeddedexpert.io/?p=4075) 
 
 Some info about setting up FreeRTOS on the Nucleo [link](https://dds-demonstrators.readthedocs.io/en/latest/Teams/2.Demonstra-Tors/7.NucleoDDS/DDSFreeRTOS.html#system-timer)
@@ -42,6 +52,20 @@ Some info about setting up FreeRTOS on the Nucleo [link](https://dds-demonstrato
 Relevant timer info [link](https://community.st.com/stm32cubemx-mcus-29/trouble-changing-timebase-to-something-other-than-systick-24703)
 
 Info on requiring a different timebase when running with RTOS [link](https://community.st.com/stm32cubemx-mcus-29/code-generated-by-stm32cubemx-sets-the-hal-timebase-isr-priority-incorrectly-when-using-freertos-is-it-really-necessary-to-have-a-separate-timebase-20536)
+
+SPI1: PT Teensy
+
+SPI3: LC/TM Teensy
+
+I2C1: Servo shield
+
+PE14: Ignition relay GPIO pin
+
+LPUART1: Radio I/O (UART tutorial with STM32: https://controllerstech.com/stm32-uart-1-configure-uart-transmit-data/)
+
+QSPI: SD card board (CN10: 13, 15, 21, 23 | PG6, PB2, PD12, PD11)
+
+LEDs: green (1 - PB0), red (3 - PB14), yellow (2 - PE1) [info from schematic: https://www.st.com/resource/en/schematic_pack/mb1363-h755ziq-d01_schematic.pdf]
 
 
 ### ADS1256 Notes
