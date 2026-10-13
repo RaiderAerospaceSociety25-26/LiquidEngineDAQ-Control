@@ -26,6 +26,9 @@ SPI communication code examples [link](https://www.makerguides.com/master-slave-
 
 # Hardware and Firmware
 
+### SPI
+Some SPI basics for sending data between microcontrollers [link](https://www.gammon.com.au/forum/threads/10892.html?id=10892) [link](https://www.fpaynter.com/2020/03/arduino-spi-data-exchange-between-two-arduinos-in-a-master-slave-configuration/)
+
 ### MCUs
 
 #### Nucleo-H755ZI-Q
