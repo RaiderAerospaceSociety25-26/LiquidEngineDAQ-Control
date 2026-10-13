@@ -7,8 +7,6 @@ For master to-do list, see Kanban board in Teams for the most up-to-date informa
 ## Firmware Architecture
 Plan is to just use Arduino and the common setup and loop structure for the Teensys. The Nucleo will need STM32Cube IDE to be able to flash to both the M7 and M4 chip (there are other ways, but this is the easiest I think). Ideally move to something like FreeRTOS (i.e. X-CUBE-FREERTOS) for the Nucleo board eventually to potentially speed things up.
 
-SPI communication code examples [link](https://www.makerguides.com/master-slave-spi-communication-arduino/#SPI_Master-Slave_Interfacing)
-
 ### MCU Function Divisions and Required Libraries
 #### Teensy LC/TM
 * Functions:
@@ -27,7 +25,9 @@ SPI communication code examples [link](https://www.makerguides.com/master-slave-
 # Hardware and Firmware
 
 ### SPI
-Some SPI basics for sending data between microcontrollers [link](https://www.gammon.com.au/forum/threads/10892.html?id=10892) [link](https://www.fpaynter.com/2020/03/arduino-spi-data-exchange-between-two-arduinos-in-a-master-slave-configuration/)
+Some SPI basics for sending data between microcontrollers [link](https://www.gammon.com.au/forum/threads/10892.html?id=10892) (I think the post on 13 Feb 2011 should be pretty relevant) [link2](https://www.fpaynter.com/2020/03/arduino-spi-data-exchange-between-two-arduinos-in-a-master-slave-configuration/)
+
+SPI communication code examples [link](https://www.makerguides.com/master-slave-spi-communication-arduino/#SPI_Master-Slave_Interfacing)
 
 ### MCUs
 
