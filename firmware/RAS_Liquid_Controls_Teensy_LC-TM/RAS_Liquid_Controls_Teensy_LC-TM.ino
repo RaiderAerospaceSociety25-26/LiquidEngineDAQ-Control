@@ -4,8 +4,8 @@
 
 // THERMISTOR ADC (ADS1115)
 #include "Adafruit_ADS1X15.h"
-#define TM_SDA 18 // need pin number
-#define TM_SCL 19 // need pin number
+#define TM_SDA 17
+#define TM_SCL 16
 Adafruit_ADS1115 TM; //define thermistor
 
 // PGA settings for thermistors
@@ -30,10 +30,12 @@ Adafruit_ADS1115 TM; //define thermistor
 
 // LOAD CELL ADC (NAU7802)
 #include "Adafruit_NAU7802.h"
-#define LC_SDA 0; //need pin number
-#define LC_SCL 0; //need pin number
+#define LC_SDA 18;
+#define LC_SCL 19;
 Adafruit_NAU7802 LC;
 
+
+int num = 0;
 
 // setup function
 void setup() {
@@ -44,7 +46,8 @@ void setup() {
   for (int i = 0; i < 5; i++) { digitalWrite(LED_BUILTIN, HIGH); delay(100); digitalWrite(LED_BUILTIN, LOW); delay(150); } //LED rapid flash 5 times
 
   // THERMISTOR SETUP
-  TM.begin(0x48);
+  bool setupSuccessTM = TM.begin(0x48, &Wire1);
+  Serial.println(setupSuccessTM);
   TM.setGain(ADS1X15_REG_CONFIG_PGA_4_096V);
   TM.setDataRate(RATE_ADS1115_250SPS); //0x0080 is 128 Hz; 0x00A0 is 250 Hz; 0x00C0 is 475 Hz; 0x00E0 is 860 Hz
   int16_t TM1_reading = TM.readADC_Differential_0_1();
@@ -53,12 +56,13 @@ void setup() {
   // INDICATE THERMISTOR SETUP COMPLETE
   Serial.println(TM1_reading);
   Serial.println(TM2_reading);
-  Serial.println("TM setup complete.");
+  Serial.println("TM setup complete.\n");
   for (int i = 0; i < 3; i++) { digitalWrite(LED_BUILTIN, HIGH); delay(500); digitalWrite(LED_BUILTIN, LOW); delay(250); } //LED 0.5-second flash 3 times
 
   // LC SETUP
   // default I2C address is 0x2A
-  LC.begin();
+  bool setupSuccessLC = LC.begin(&Wire);
+  Serial.println(setupSuccessLC);
   LC.enable(true); // turns sensor enabled and working
   LC.setLDO(NAU7802_4V5); //sets excitation voltage (set it as high as it can go: 4.5 V)
   LC.setGain(NAU7802_GAIN_4); //sets PGA level
@@ -67,13 +71,26 @@ void setup() {
   int32_t LC_reading = LC.read(); //read value
   // INDICATE LC SETUP COMPLETE
   Serial.println(LC_reading);
-  Serial.println("LC setup complete.");
+  Serial.println("LC setup complete.\n");
   for (int i = 0; i < 2; i++) { digitalWrite(LED_BUILTIN, HIGH); delay(3000); digitalWrite(LED_BUILTIN, LOW); delay(250); } //LED 3-second flash 2 times
 
 }
 
 
 void loop() {
+  if (num < 1000) {
+    int32_t LC_reading = LC.read();
+    Serial.println(float(LC_reading));
+    Serial.println("");
 
-  
+    Serial.println("TM:");
+    int16_t TM1_reading = TM.readADC_Differential_0_1();
+    int16_t TM2_reading = TM.readADC_Differential_2_3(); //might want to use single-ended to read all four separately, but not sure yet
+    Serial.println(TM1_reading);
+    Serial.println(TM2_reading);
+    Serial.println("");
+
+    num++;
+  }
+
 }

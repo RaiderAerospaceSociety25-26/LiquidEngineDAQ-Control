@@ -11,14 +11,14 @@
 // #define DIFF_6_7 0b01100111 //A6 + A7 as differential input
 
 //Single-ended inputs
-// #define SING_0 0b00001111 //A0 + GND (common) as single-ended input
-// #define SING_1 0b00011111 //A1 + GND (common) as single-ended input
-// #define SING_2 0b00101111 //A2 + GND (common) as single-ended input
-// #define SING_3 0b00111111 //A3 + GND (common) as single-ended input
-// #define SING_4 0b01001111 //A4 + GND (common) as single-ended input
-// #define SING_5 0b01011111 //A5 + GND (common) as single-ended input
-// #define SING_6 0b01101111 //A6 + GND (common) as single-ended input
-// #define SING_7 0b01111111 //A7 + GND (common) as single-ended input
+#define SING_0 0b00001111 //A0 + GND (common) as single-ended input
+#define SING_1 0b00011111 //A1 + GND (common) as single-ended input
+#define SING_2 0b00101111 //A2 + GND (common) as single-ended input
+#define SING_3 0b00111111 //A3 + GND (common) as single-ended input
+#define SING_4 0b01001111 //A4 + GND (common) as single-ended input
+#define SING_5 0b01011111 //A5 + GND (common) as single-ended input
+#define SING_6 0b01101111 //A6 + GND (common) as single-ended input
+#define SING_7 0b01111111 //A7 + GND (common) as single-ended input
 
 //PGA settings			  //Input voltage range
 #define PGA_1 0b00000000  //± 5 V
@@ -52,8 +52,8 @@
 #define BITORDER_LSB 1
 #define ACAL_DISABLED 0
 #define ACAL_ENABLED 1
-#define BUFFER_DISABLED 0
-#define BUFFER_ENABLED 1
+#define BUFFER_DISABLED 00000000
+#define BUFFER_ENABLED 00000001
 
 //Register addresses
 #define STATUS_REG 0x00
@@ -89,25 +89,28 @@
 #define SPI_MOSI 11
 #define SPI_MISO 12
 #define SPI_SCK 13
-#define USE_SPI SPI1
-#define DRDY 7
-#define SYNC 8
+#define USE_SPI SPI
+#define DRDY 22
+#define SYNC 23
 #define CS 10
-#define VREF_M 2.500 //measured VREF value
+#define VREF_M 2.5 //measured VREF value (should be 2.500 V) //possibly measured as 1.57 V, but pretty sure it's not right
 
 #define BUF_SET = BUFFER_DISABLED //Set buffer off (0) or on (1). BUFFER MUST BE TURNED OFF FOR READING +4.5V FROM RATIOMETRIC PT!
 #define PGA_SET PGA_1 //Set PGA (programmable gain amplifier) to 1 to measure ± 5 V
 //Note: datarate SPS numbers are only for single-input measurement. If more inputs are used, above 100 SPS, the true SPS is much lower due to the multiplexer having to cycle through inputs: 30000 SPS = 4374 Hz, 2000 SPS = 1438 Hz, 500 SPS = 456 Hz, and so on.
-#define DRATE_SET DRATE_2000SPS //set to 2000 sps for now
-//int singleEndedChannels[8] = {SING_0, SING_1, SING_2, SING_3, SING_4, SING_5, SING_6, SING_7}; //Array to store the single-ended channels
+#define DRATE_SET DRATE_3750SPS //set datarate
+int singleEndedChannels[8] = {SING_0, SING_1, SING_2, SING_3, SING_4, SING_5, SING_6, SING_7}; //Array to store the single-ended channels
 //------------------------------------------------------------------------------------------------------------------
 
-//Create ADS1256 object. (DRDY, RESET, SYNC(PDWN), CS, VREF(float)) [for Teensy 4.0]. Measure VREF; if it is not 2.500 exactly, measure it with a multimeter and input it correctly here; this is essential for accurachy.
+//Create ADS1256 object. (DRDY, RESET, SYNC(PDWN), CS, VREF(float)) [for Teensy 4.0].
 ADS1256 PT_ADC(DRDY, ADS1256::PIN_UNUSED, SYNC, CS, VREF_M, &USE_SPI);
 
 int num = 0;
+unsigned long setupEndTime = 0;
 
 void setup() {
+
+
   // LED BLINK AND SETUP BEGIN CONFIRMATION
   Serial.begin(9600);
   Serial.println("Begin setup");
@@ -119,32 +122,71 @@ void setup() {
   PT_ADC.InitializeADC();
 
   //settings
-  PT_ADC.setBuffer(BUFFER_DISABLED); //set buffer; ensure buffer is turned off for reading +4.5V from ratiometric PT
+  PT_ADC.setBuffer(BUFFER_DISABLED); //set buffer; ensure buffer is turned off for reading +4.5V from ratiometric PT //POSSIBLE ISSUE WITH BUFFER NOT BEING SET TO 0!!
   uint8_t buffer_val = PT_ADC.getBuffer(); //get buffer
   Serial.print("Buffer value: ");
   Serial.println(buffer_val);
+
   PT_ADC.setPGA(PGA_SET); //set PGA
   PT_ADC.setDRATE(DRATE_SET); //set data rate
 
+  PT_ADC.setBuffer(BUFFER_DISABLED); //set buffer; ensure buffer is turned off for reading +4.5V from ratiometric PT //POSSIBLE ISSUE WITH BUFFER NOT BEING SET TO 0!!
+  uint8_t buffer_val2 = PT_ADC.getBuffer(); //get buffer
+  Serial.print("Buffer value: ");
+  Serial.println(buffer_val2);
+
   //read
-  long dataTest = PT_ADC.cycleSingle(); //cycleSingle() returns a 24 bit signed value converted to a long, and cycles through channels 0 -> 7 (multiplexing); as far as I can tell, each call of this function returns the long value of a single channel, and it just loops through the channels with each call of this function (not entirely sure though)
-  Serial.println(dataTest);
-  PT_ADC.stopConversion(); //conversion must be stopped after reading is no longer necessary
+  //long dataTest = PT_ADC.cycleSingle(); //cycleSingle() returns a 24 bit signed value converted to a long, and cycles through channels 0 -> 7 (multiplexing); as far as I can tell, each call of this function returns the long value of a single channel, and it just loops through the channels with each call of this function (not entirely sure though)
+  //Serial.println(dataTest);
+  //PT_ADC.stopConversion(); //conversion must be stopped after reading is no longer necessary
 
   //note setup complete
   Serial.println("PT setup complete.");
   for (int i = 0; i < 3; i++) { digitalWrite(LED_BUILTIN, HIGH); delay(500); digitalWrite(LED_BUILTIN, LOW); delay(250); } //LED 0.5-second flash 3 times
+
+  //for testing: set MUX to only read one channel
+  //PT_ADC.setMUX(SING_7);
   // ------------------------------------------------------------------------------------
 
+  setupEndTime = millis();
 }
 
 void loop() {
+
+  //PT LOOP; TESTED WITH HARDWARE AND CURRENTLY WORKS!!!
+  //timing for loop of 8 (without conversion): 2000 sps = 8.156 ms (I think) || 3750 sps = 1.836 ms || 30,000 sps = ___
+  //timing for loop of 8 (with conversion to voltage and adding to an array): 3750 sps = 1.835 ms
+  
   if (num < 1000) {
-    long dataTest = PT_ADC.cycleSingle(); //cycleSingle() returns a 24 bit signed value converted to a long, and cycles through channels 0 -> 7 (multiplexing); as far as I can tell, each call of this function returns the long value of a single channel, and it just loops through the channels with each call of this function (not entirely sure though)
-    Serial.println(dataTest);
+    
+    float testArray[8];
+    unsigned long before = micros();
+    for (int i = 0; i < 8; i++) {
+      long dataTest = PT_ADC.cycleSingle(); //cycleSingle() returns a 24 bit signed value converted to a long, and cycles through channels 0 -> 7 (multiplexing); as far as I can tell, each call of this function returns the long value of a single channel, and it just loops through the channels with each call of this function (not entirely sure though)
+      float voltageTest = PT_ADC.convertToVoltage((int32_t)dataTest);
+      testArray[i] = voltageTest;
+    }
+    unsigned long after = micros();
+    Serial.println((float)(after - before));
+
+    Serial.print("[ ");
+    for (int i = 0; i < 8; i++) { Serial.print(testArray[i]); Serial.print("  "); }
+    Serial.print("]\n");
+    //Serial.println((float)(millis() - setupEndTime));
+
     num++;
   }
+
   else if (num == 1000) { PT_ADC.stopConversion(); }
+  
+
+  //using readSingle() [currently works to read from one MUX channel; use setMUX() to update the MUX channel]
+  // if (num < 1000) {
+  //   long dataTest = PT_ADC.readSingle();
+  //   float voltageTest = PT_ADC.convertToVoltage((int32_t)dataTest);
+  //   Serial.println(voltageTest);
+  //   num++;
+  // }
 
 
 }
