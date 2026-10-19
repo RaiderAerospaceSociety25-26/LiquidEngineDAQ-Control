@@ -3,6 +3,9 @@ Repository for DAQ and control system for the liquid engine and test stand being
 
 For master to-do list, see Kanban board in Teams for the most up-to-date information.
 
+
+CORRECTION TO THE CIRCUIT DIAGRAM: RST PIN ON THE ADS1256 IS ACTUALLY THE SYNC/PDWN PIN!!
+
 # Firmware
 ## Firmware Architecture
 Plan is to just use Arduino and the common setup and loop structure for the Teensys. The Nucleo will need STM32Cube IDE to be able to flash to both the M7 and M4 chip (there are other ways, but this is the easiest I think). Ideally move to something like FreeRTOS (i.e. X-CUBE-FREERTOS) for the Nucleo board eventually to potentially speed things up.
